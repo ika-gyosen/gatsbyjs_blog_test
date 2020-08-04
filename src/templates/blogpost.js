@@ -10,11 +10,14 @@ class BlogPostTemplate extends React.Component {
     const body = this.props.data.contentfulBlogPost.body.body
     const prev = this.props.pageContext.prev
     const next = this.props.pageContext.next
+    const mdbody = this.props.data.mdbody.edges[0].node.body.childMarkdownRemark
+    console.log("mdbody", mdbody)
     return (
       <div>
         <div>
           <h1>{ftitle}</h1>
           <p>{body}</p>
+          <div dangerouslySetInnerHTML={{ __html: mdbody.html }}></div>
           <ul>
             {edges.map(({ node }) => {
               console.log(node.title)
@@ -58,6 +61,17 @@ export const PageQuery = graphql`
         title
         description
         author
+      }
+    }
+    mdbody: allContentfulBlogPost {
+      edges {
+        node {
+          body {
+            childMarkdownRemark {
+              html
+            }
+          }
+        }
       }
     }
   }

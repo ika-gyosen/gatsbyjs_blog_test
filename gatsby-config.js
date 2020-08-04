@@ -40,8 +40,12 @@ module.exports = {
         accessToken: `VNk0AJMtEdPLQeC8PgXcz8itF9pEQbyxTgPzWBLI3ZI`,
       },
     },
+
+    "gatsby-transformer-remark",
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
+  pathPrefix: "/img",
 }

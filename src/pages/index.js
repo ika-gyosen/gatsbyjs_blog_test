@@ -10,6 +10,8 @@ import { graphql } from "gatsby"
 class IndexPage extends React.Component {
   render() {
     const { edges } = this.props.data.allContentfulBlogPost
+    const { latest } = this.props.data
+    console.log(latest)
     return (
       <div>
         <h1>aaa</h1>
@@ -56,6 +58,18 @@ export const query = graphql`
       edges {
         node {
           title
+        }
+      }
+    }
+    latest: allContentfulBlogPost(
+      sort: { fields: createdAt, order: DESC }
+      limit: 3
+    ) {
+      edges {
+        node {
+          slug
+          title
+          createdAt
         }
       }
     }

@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
+import Header from "../components/header"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
@@ -11,10 +12,17 @@ class IndexPage extends React.Component {
   render() {
     const { edges } = this.props.data.allContentfulBlogPost
     const { latest } = this.props.data
-    console.log(latest)
+    const local_md = this.props.data.allFile.edges[0].node
+
     return (
-      <div>
+      <Layout>
+        <Header />
         <h1>aaa</h1>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: local_md.childMarkdownRemark.html,
+          }}
+        ></div>
         {edges.map(({ node }) => {
           return (
             <li>
@@ -27,7 +35,7 @@ class IndexPage extends React.Component {
           )
         })}
         <pre>{console.log(edges)}</pre>
-      </div>
+      </Layout>
     )
   }
 }
@@ -79,6 +87,22 @@ export const query = graphql`
           title
           updatedAt
           slug
+        }
+      }
+    }
+    allFile(
+      filter: {
+        childMarkdownRemark: { frontmatter: { title: { eq: "test" } } }
+      }
+    ) {
+      edges {
+        node {
+          childMarkdownRemark {
+            html
+            frontmatter {
+              title
+            }
+          }
         }
       }
     }
